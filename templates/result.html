@@ -1,0 +1,16 @@
+{% extends "index.html" %}
+
+{% block head %}
+  {{super()}}
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta charset="utf-8">
+  {{"decoupled-map"|googlemap_js(37.4419, -122.1419, varname="decoupledmap", markers=[(37.4419, -122.1419)])}}
+  {{eqmap.js}}
+{% endblock %}
+
+{% block content %}
+    <div class="about">
+      <h1>Closest Results Map </h1>
+        {{eqmap.html}}
+    </div>
+{% endblock %}

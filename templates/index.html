@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+      <title>Assignment - David</title>
+      <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+      {% block head %}
+      {% endblock %}
+  </head>
+
+  <body>
+    <header>
+      <div class="container">
+        <h1 class="logo">David Sáenz S.</h1>
+      </div>
+    </header>
+
+    <div class="home">
+      <h1>Assignment for ANM</h1>
+        <form action = "http://anm-assignment.herokuapp.com/result" method = "POST">
+           <p>City/Location:<input type = "text" name = "LocationCity"/></p>
+           <p><input type = "submit" value = "submit" /></p>
+        </form>
+    </div>
+
+    <div class="container">
+      {% block content %}
+      {% endblock %}
+    </div>
+
+  </body>
+</html>
