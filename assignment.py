@@ -33,8 +33,8 @@ def result():
 
         north = latitude + 0.5
         south = latitude - 0.5
-        west = longitude + 0.5
-        east = longitude - 0.5
+        west = longitude - 0.5
+        east = longitude + 0.5
         print "North, South, West, East: ", north, south, west, east
 
         earthquakes = requests.get("http://api.geonames.org/earthquakesJSON?north=" + str(north) + "&south=" + str(south) + "&east=" + str(east) + "&west=" + str(west) + "&username=davethefinder")
