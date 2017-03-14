@@ -12,16 +12,24 @@ GoogleMaps(app)
 
 gmaps = googlemaps.Client(key=google_key)
 
-@app.route('/', methods = ['POST', 'GET'])
+@app.route('/')
 def index():
     return render_template('index.html')
+
+@app.route('/top10')
+def top10():
+    top_10_Request = requests.get("http://api.geonames.org/earthquakesJSON?north=90&south=-90&east=180&west=-180&minMagnitude=7.0&date=2017-03-13&maxRows=17&username=davethefinder")
+    top_10_JSON = top_10_Request.json()
+    top_Array = top_10_JSON['earthquakes']
+    sorted_Top_10 = sorted(top_Array, key=lambda k: k['magnitude'], reverse=True)
+    top_10 = sorted_Top_10[:10]
+
+    return render_template('top10.html', top_10 = top_10)
 
 # /<my_location>
 @app.route('/result', methods = ['POST', 'GET'])
 def result():
     if request.method == 'POST':
-        result = request.form
-
         geocode_result = gmaps.geocode(request.form['LocationCity'])
         geo = geocode_result[0]
         geometry = geo['geometry']
@@ -29,21 +37,21 @@ def result():
         location = geometry['location']
         latitude = location['lat']
         longitude = location['lng']
-        print "Lat, Lng: ", latitude, longitude
+        print "Lat: ", latitude, "\tLng: ", longitude
 
         north = latitude + 0.5
         south = latitude - 0.5
         west = longitude - 0.5
         east = longitude + 0.5
-        print "North, South, West, East: ", north, south, west, east
+        print "North: ", north, "\tSouth: ", south, "\tEast: ", east, "\tWest: ", west
 
         earthquakes = requests.get("http://api.geonames.org/earthquakesJSON?north=" + str(north) + "&south=" + str(south) + "&east=" + str(east) + "&west=" + str(west) + "&username=davethefinder")
         earthquakesJSON = earthquakes.json()
 
-        markers = earthquakesJSON['earthquakes']
+        markersData = earthquakesJSON['earthquakes']
         marks = []
 
-        for x in markers:
+        for x in markersData:
             mark = {
             'icon': '//maps.google.com/mapfiles/ms/icons/red-dot.png',
             'lat': x['lat'],

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+      <title>Assignment - David</title>
+      <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+  </head>
+
+  <body>
+    <header>
+      <div class="container">
+        <h1 class="logo">David Sáenz S.</h1>
+      </div>
+    </header>
+
+    <div class="about">
+      <h1>Assignment for ANM</h1>
+      <h1>Top 10 Eartquakes</h1>
+        <table border=1; style="width: 100%;">
+
+          {% for x in top_10 %}
+            <tr>
+                <th>Datetime:<br> <p style="font-weight:normal;"> {{x['datetime']}} </p></th>
+                  <td align="center"> <p style="font-weight:bold;">Magnitue:</p><br> {{x['magnitude']}} </th>
+                  <td align="center"> <p style="font-weight:bold;">Depth:</p><br> {{x['depth']}} </th>
+                  <td align="center"> <p style="font-weight:bold;">Latitude:</p><br> {{x['lat']}} </th>
+                  <td align="center"> <p style="font-weight:bold;">Longitude:</p><br> {{x['lng']}} </th>
+                  <td align="center"> <p style="font-weight:bold;">EQID:</p><br> {{x['eqid']}} </th>
+                  <td align="center"> <p style="font-weight:bold;">Source:</p><br> {{x['src']}} </th>
+            </tr>
+          {% endfor %}
+
+        </table>
+    </div>
+
+  </body>
+</html>
